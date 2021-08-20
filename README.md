@@ -15,6 +15,8 @@ This project is an example of how to write a meele combat system by using raycas
 
 [Low Poly Arsenal - Copper](https://www.cgtrader.com/products/low-poly-arsenal-copper).
 
+[Training Dummy](https://www.cgtrader.com/free-3d-models/various/various-models/training-dummy-c1ac19aa-3d43-420b-a32c-a2360f9ae26b).
+
 [Grass texture](https://www.freepik.com/free-vector/seamless-textured-grass-natural-grass-pattern_11930799.htm).
 
 ## License
