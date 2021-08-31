@@ -56,7 +56,21 @@ namespace Game
             get
             {
                 var time = timeRunning;
-                return data.exec.duration > 0.0f && time >= data.exec.delay && time < data.exec.delay + data.exec.duration;
+                var delay = data.exec.delay / data.speed;
+                var duration = data.exec.duration / data.speed;
+                return duration > 0.0f && time >= delay && time < delay + duration;
+            }
+        }
+
+        /// <summary>Indicate if the action is in combo phase</summary>
+        public bool isComboPhase
+        {
+            get
+            {
+                var time = timeRunning;
+                var delay = data.combo.delay / data.speed;
+                var duration = data.combo.duration / data.speed;
+                return duration > 0.0f && time >= delay && time < delay + duration;
             }
         }
 
@@ -77,6 +91,7 @@ namespace Game
                 // Trigger the animation for this action
                 Debug.Log($"Trigger animation {_data.anim}");
                 _parent.animator.SetTrigger(_data.anim);
+                _parent.animator.SetFloat("AttackSpeed", _data.speed);
             }
 
             return true;
@@ -120,17 +135,8 @@ namespace Game
         /// <returns>If a combo is possible</returns>
         public bool CanCombo(out EActionId actionId)
         {
-            // Empty duration or no action set for combo
-            if (data.combo.duration == 0 || data.combo.actionId == EActionId.None)
-            {
-                actionId = EActionId.None;
-                return false;
-            }
-
             actionId = data.combo.actionId;
-            
-            var time = timeRunning;
-            return time >= data.combo.delay && time < data.combo.delay + data.combo.duration;
+            return isComboPhase;
         }
 
         /// <summary>Factory method that creates Actions for requested gameplay logic</summary>

@@ -53,21 +53,26 @@ namespace Game
             bool hasCombo = action.data.combo.duration > 0.0f && action.data.duration > 0.0f;
             _comboPhaseTransform.gameObject.SetActive(hasCombo);
             _inputPhaseTransform.gameObject.SetActive(hasCombo);
+
+            var actionDuration = action.data.duration / action.data.speed;
+
             if (hasCombo)
             {
-                var delay = action.data.combo.delay;
-                var duration = action.data.combo.duration;
-                _comboPhaseTransform.sizeDelta = new Vector2((duration / action.data.duration) * _barTransform.rect.width, 20.0f);
-                _comboPhaseTransform.anchoredPosition = new Vector2((delay / action.data.duration) * _barTransform.rect.width, 0.0f);
-                _inputPhaseTransform.sizeDelta = new Vector2(((duration + _inputController.inputLifetime) / action.data.duration) * _barTransform.rect.width, 20.0f);
-                _inputPhaseTransform.anchoredPosition = new Vector2(((delay - _inputController.inputLifetime) / action.data.duration) * _barTransform.rect.width, 0.0f);
+                var comboDelay = action.data.combo.delay / action.data.speed;
+                var comboDuration = action.data.combo.duration / action.data.speed;
+                _comboPhaseTransform.sizeDelta = new Vector2((comboDuration / actionDuration) * _barTransform.rect.width, 20.0f);
+                _comboPhaseTransform.anchoredPosition = new Vector2((comboDelay / actionDuration) * _barTransform.rect.width, 0.0f);
+                _inputPhaseTransform.sizeDelta = new Vector2(((comboDuration + _inputController.inputLifetime) / actionDuration) * _barTransform.rect.width, 20.0f);
+                _inputPhaseTransform.anchoredPosition = new Vector2(((comboDelay - _inputController.inputLifetime) / actionDuration) * _barTransform.rect.width, 0.0f);
             }
 
             if (action.data.exec.duration > 0.0f)
             {
+                var execDelay = action.data.exec.delay / action.data.speed;
+                var execDuration = action.data.exec.duration / action.data.speed;
                 _execPhaseTransform.gameObject.SetActive(true);
-                _execPhaseTransform.sizeDelta = new Vector2((action.data.exec.duration / action.data.duration) * _barTransform.rect.width, 20.0f);
-                _execPhaseTransform.anchoredPosition = new Vector2((action.data.exec.delay / action.data.duration) * _barTransform.rect.width, 0.0f);
+                _execPhaseTransform.sizeDelta = new Vector2((execDuration / actionDuration) * _barTransform.rect.width, 20.0f);
+                _execPhaseTransform.anchoredPosition = new Vector2((execDelay / actionDuration) * _barTransform.rect.width, 0.0f);
             }
             else
             {
@@ -84,7 +89,7 @@ namespace Game
 
             var o = Instantiate(_buttonPrefab);
             o.transform.SetParent(_barTransform.transform);
-            o.GetComponent<RectTransform>().anchoredPosition = new Vector2((_action.timeRunning / _action.data.duration) * _barTransform.rect.width, 0.0f);
+            o.GetComponent<RectTransform>().anchoredPosition = new Vector2((_action.timeRunning / (_action.data.duration / _action.data.speed)) * _barTransform.rect.width, 0.0f);
             _buttons.Add(o);
         }
 
@@ -93,7 +98,7 @@ namespace Game
             var dX = 0.0f;
             if (_action != null && _action.data.duration > 0.0f)
             {
-                dX = _action.timeRunning / _action.data.duration;
+                dX = _action.timeRunning / (_action.data.duration / _action.data.speed);
             }
 
             if (dX > 1.0f)

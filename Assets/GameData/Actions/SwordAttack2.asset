@@ -17,6 +17,8 @@ MonoBehaviour:
   displayName: SwordAttack2
   logic: 0
   duration: 1.0416666
+  speed: 1
+  damage: 0
   exec:
     delay: 0.5416667
     duration: 0.16666667

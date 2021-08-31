@@ -107,7 +107,7 @@ namespace Game
             bool keepGoing = action.Update();
             bool expirable = action.data.duration > 0f; //non-positive value is a sentinel indicating the duration is indefinite.
             var timeElapsed = Time.time - action.timeStarted;
-            bool timeExpired = expirable && timeElapsed >= action.data.duration;
+            bool timeExpired = expirable && timeElapsed >= (action.data.duration / action.data.speed);
             return keepGoing && !timeExpired;
         }
         

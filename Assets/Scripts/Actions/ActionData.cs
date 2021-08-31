@@ -51,6 +51,9 @@ namespace Game
         [Tooltip("Duration in seconds that this Action takes to play")]
         public float duration;
 
+        [Tooltip("Speed multiplier for animation and Action")]
+        public float speed;
+
         [Tooltip("Damages caused by this Action to other entities")]
         public int damage;
 
