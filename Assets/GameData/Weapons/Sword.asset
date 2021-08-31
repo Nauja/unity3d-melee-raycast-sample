@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc620f1dc426d024e9fc30f28da97d93, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  id: 1
+  displayName: Sword
+  pickupPrefab: {fileID: 5292938091047691040, guid: b4cdb94a1deb3cf48b2db65f8149fd6c, type: 3}
+  pickupOffset: {x: 0, y: 0, z: -0.83}
+  equipPrefab: {fileID: 1274179807194988, guid: 920895e3bce17c245bb5c7c10181598a, type: 3}
+  actionId: 1
+  animatorOverride: {fileID: 22100000, guid: ba36d5e0c73d8be49b9c2a3d2a21cb11, type: 2}
