@@ -12,7 +12,7 @@ namespace Game
         public MeleeAction(IEntity parent, ActionData data)
             : base(parent, data)
         {
-            _layerMask = LayerMask.GetMask("Default");
+            _layerMask = LayerMask.GetMask("Entity");
         }
 
         public override bool Update()
@@ -28,17 +28,17 @@ namespace Game
                 Vector3 position, extents, direction;
                 GetHitbox(out position, out extents, out direction);
 
-                RaycastHit[] hits = Physics.BoxCastAll(position, extents, direction, Quaternion.identity, _layerMask);
+                Collider[] hits = Physics.OverlapBox(position, extents / 2.0f, Quaternion.identity, _layerMask);
 
                 foreach (var hit in hits)
                 {
-                    IEntity entity = hit.collider.gameObject.GetComponent<IEntity>();
+                    IEntity entity = hit.gameObject.GetComponent<IEntity>();
                     if (entity == null || entity == parent)
                     {
                         continue;
                     }
 
-                    Debug.Log($"Hit {entity}");
+                    entity.OnHit(data.damage);
                 }
             }
 
@@ -53,16 +53,16 @@ namespace Game
                 GetHitbox(out position, out extents, out direction);
 
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireCube(position + direction, extents);
+                Gizmos.DrawWireCube(position, extents);
             }
         }
 
         /// <summary>Compute the hitbox position and size</summary>
         protected virtual void GetHitbox(out Vector3 position, out Vector3 extents, out Vector3 direction)
         {
-            position = parent.gameObject.transform.position;
+            direction = parent.gameObject.transform.forward;
+            position = parent.gameObject.transform.position + direction * 10.0f;
             extents = new Vector3(5.0f, 5.0f, 5.0f);
-            direction = parent.gameObject.transform.forward * 10.0f;
         }
     }
 }

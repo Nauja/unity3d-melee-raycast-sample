@@ -56,6 +56,11 @@ namespace Game
             get { return _actionController; }
         }
 
+        public bool isImmune
+        {
+            get { return false; }
+        }
+
         private void Awake()
         {
             _actionController = new ActionController(this);
@@ -148,6 +153,9 @@ namespace Game
 
             GameEvents.WeaponEquipped(weaponId);
         }
+
+        public virtual void OnHit(int damage)
+        {}
 
         private void OnDrawGizmos()
         {

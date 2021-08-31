@@ -25,5 +25,14 @@ namespace Game
         {
             get;
         }
+
+        /// <summary>Return true if immune to attacks</summary>
+        bool isImmune
+        {
+            get;
+        }
+
+        /// <summary>Called when hit by an attack</summary>
+        void OnHit(int damage);
     }
 }

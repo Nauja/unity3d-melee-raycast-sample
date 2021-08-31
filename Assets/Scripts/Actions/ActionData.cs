@@ -51,6 +51,9 @@ namespace Game
         [Tooltip("Duration in seconds that this Action takes to play")]
         public float duration;
 
+        [Tooltip("Damages caused by this Action to other entities")]
+        public int damage;
+
         [Header("Phases")]
         [Tooltip("When is the execution phase")]
         public ExecPhase exec;
